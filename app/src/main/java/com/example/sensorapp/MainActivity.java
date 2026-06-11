@@ -26,12 +26,28 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        if (sensorManager != null) {
-            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-            proximity = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        }
+if (sensorManager != null) {
 
+    accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    if (accelerometer == null) {
+        tvAccelerometer.setText("❌ Accelerometer not available");
+    }
+
+    light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+    if (light == null) {
+        tvLight.setText("❌ Light Sensor not available");
+    }
+
+    proximity = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+    if (proximity == null) {
+        tvProximity.setText("❌ Proximity Sensor not available");
+    }
+
+} else {
+    tvAccelerometer.setText("Sensor Manager not available");
+    tvLight.setText("Sensor Manager not available");
+    tvProximity.setText("Sensor Manager not available");
+}
         if (accelerometer == null) tvAccelerometer.setText("Accelerometer not available");
         if (light == null) tvLight.setText("Light sensor not available");
         if (proximity == null) tvProximity.setText("Proximity sensor not available");
