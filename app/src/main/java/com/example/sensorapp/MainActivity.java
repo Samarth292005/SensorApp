@@ -71,12 +71,18 @@ if (sensorManager != null) {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        if (sensorManager != null) {
-            sensorManager.unregisterListener(this);
-        }
+    
+protected void onPause() {
+    super.onPause();
+
+    if (sensorManager == null) {
+        return;
     }
+
+    sensorManager.unregisterListener(this, accelerometer);
+    sensorManager.unregisterListener(this, light);
+    sensorManager.unregisterListener(this, proximity);
+}
 
     @Override
     public void onSensorChanged(SensorEvent event) {
