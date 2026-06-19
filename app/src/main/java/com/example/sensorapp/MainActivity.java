@@ -1,33 +1,34 @@
 class Solution {
     public int pairSum(ListNode head) {
 
-        // Step 1: find middle
-        ListNode slow = head, fast = head;
+        // Find middle of the linked list
+        ListNode slow = head;
+        ListNode fast = head;
 
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
 
-        // Step 2: reverse second half
+        // Reverse second half
         ListNode prev = null;
-        ListNode curr = slow;
 
-        while (curr != null) {
-            ListNode next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
+        while (slow != null) {
+            ListNode next = slow.next;
+            slow.next = prev;
+            prev = slow;
+            slow = next;
         }
 
-        // Step 3: compute max twin sum
+        // Calculate maximum twin sum
+        int max = 0;
+
         ListNode first = head;
         ListNode second = prev;
 
-        int max = 0;
-
         while (second != null) {
             max = Math.max(max, first.val + second.val);
+
             first = first.next;
             second = second.next;
         }
